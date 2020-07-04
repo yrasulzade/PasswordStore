@@ -5,6 +5,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.example.passwordstore.model.Password;
 
@@ -17,10 +18,13 @@ public interface PasswordDao {
     void insertPassword(Password password);
 
     @Query("Delete FROM password_table WHERE id=:id")
-    int deleteOnePassword(int id);
+    void deleteOnePassword(int id);
 
-    @Query("UPDATE password_table SET password_column =:password WHERE id=:id")
-    int updatePassword(int id, String password);
+//    @Query("Insert INTO password_table WHERE id=:id")
+//    void undoDeletedPassword(Password password);
+
+    @Update
+    void updatePassword(Password password);
 
     @Query("DELETE FROM password_table")
     void deletePassword();

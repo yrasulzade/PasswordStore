@@ -2,6 +2,7 @@ package com.example.passwordstore;
 
 import android.app.Application;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -37,6 +38,10 @@ public class PasswordRepository {
         new deleteOneAsyncTask(passwordDao).execute(id);
     }
 
+    public void updatePassword(Password pass) {
+        new updateAsyncTask(passwordDao).execute(pass);
+    }
+
     private class insertAsyncTask extends AsyncTask<Password, Void, Void> {
         private PasswordDao asyncDao;
 
@@ -47,6 +52,20 @@ public class PasswordRepository {
         @Override
         protected Void doInBackground(Password... passwords) {
             asyncDao.insertPassword(passwords[0]);
+            return null;
+        }
+    }
+
+    private class updateAsyncTask extends AsyncTask<Password, Void, Void> {
+        private PasswordDao asyncDao;
+
+        public updateAsyncTask(PasswordDao dao) {
+            asyncDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Password... passwords) {
+            asyncDao.updatePassword(passwords[0]);
             return null;
         }
     }

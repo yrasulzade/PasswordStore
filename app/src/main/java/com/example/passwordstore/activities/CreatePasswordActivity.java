@@ -16,7 +16,7 @@ import com.example.passwordstore.model.PasswordViewModel;
 public class CreatePasswordActivity extends AppCompatActivity {
     EditText titleEdit, userEdit, passwordEdit;
     private PasswordViewModel passwordViewModel;
-    String TAG = "yunis";
+    String TAG = "CreatePasswordActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

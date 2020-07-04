@@ -16,7 +16,8 @@ import com.example.passwordstore.model.PasswordViewModel;
 public class UpdatePasswordActivity extends AppCompatActivity {
     EditText titleEdit, userEdit, passwordEdit;
     private PasswordViewModel passwordViewModel;
-    String TAG = "qasim";
+    int id;
+    String TAG = "UpdatePasswordActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,7 @@ public class UpdatePasswordActivity extends AppCompatActivity {
         titleEdit.setText(intent.getStringExtra("title"));
         userEdit.setText(intent.getStringExtra("subtitle"));
         passwordEdit.setText(intent.getStringExtra("password"));
+        id = intent.getIntExtra("id",0);
 
         Log.d(TAG, "onCreate: "+ intent.getStringExtra("title"));
         Log.d(TAG, "onCreate: "+ intent.getStringExtra("subtitle"));
@@ -46,7 +48,8 @@ public class UpdatePasswordActivity extends AppCompatActivity {
         String pass = passwordEdit.getText().toString();
 
         Password password = new Password(pass, title, username);
-        passwordViewModel.insert(password);
+        password.setId(id);
+        passwordViewModel.updateItem(password);
         finish();
 
     }

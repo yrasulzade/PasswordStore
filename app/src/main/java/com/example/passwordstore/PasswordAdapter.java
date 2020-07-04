@@ -21,7 +21,7 @@ import java.util.List;
 public class PasswordAdapter extends RecyclerView.Adapter<PasswordAdapter.ViewHolder> {
     Context context;
     List<Password> passwordList;
-    String TAG = "yunis";
+    String TAG = "PasswordAdapter";
 
     public interface OnItemClickListener {
         void onItemClick(int position);
@@ -65,12 +65,13 @@ public class PasswordAdapter extends RecyclerView.Adapter<PasswordAdapter.ViewHo
             title = itemView.findViewById(R.id.titleText);
             subtitle = itemView.findViewById(R.id.subtitle);
 
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Log.d(TAG, "onClick: " + "***********");
-//                }
-//            });
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d(TAG, "******IDIDID*****" + passwordList.get(getAdapterPosition()).getId());
+                }
+            });
+            int a=getItemViewType();
 
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
