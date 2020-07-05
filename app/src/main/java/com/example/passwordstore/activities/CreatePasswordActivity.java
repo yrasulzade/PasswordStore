@@ -17,6 +17,7 @@ public class CreatePasswordActivity extends AppCompatActivity {
     EditText titleEdit, userEdit, passwordEdit;
     private PasswordViewModel passwordViewModel;
     String TAG = "CreatePasswordActivity";
+    int fromWhere,id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +28,15 @@ public class CreatePasswordActivity extends AppCompatActivity {
         userEdit = findViewById(R.id.username_edit);
         passwordEdit = findViewById(R.id.password_edit);
 
-        passwordViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(PasswordViewModel.class);
+        Intent intent = getIntent();
+        titleEdit.setText(intent.getStringExtra("title"));
+        userEdit.setText(intent.getStringExtra("subtitle"));
+        passwordEdit.setText(intent.getStringExtra("password"));
+        id = intent.getIntExtra("id",0);
 
+        fromWhere = intent.getIntExtra("fromWhere",0);
+
+        passwordViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(PasswordViewModel.class);
 
     }
     public void go_main(View view){
@@ -39,10 +47,15 @@ public class CreatePasswordActivity extends AppCompatActivity {
         String title = titleEdit.getText().toString();
         String username = userEdit.getText().toString();
         String pass = passwordEdit.getText().toString();
-
         Password password = new Password(pass, title, username);
-        passwordViewModel.insert(password);
-        finish();
 
+        if (fromWhere==MainActivity.CREATE_PASSWORD){
+            passwordViewModel.insert(password);
+        }
+        else{
+            password.setId(id);
+            passwordViewModel.updateItem(password);
+        }
+        finish();
     }
 }
