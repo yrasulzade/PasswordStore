@@ -32,9 +32,6 @@ public class PasswordViewModel extends AndroidViewModel {
         passwordRepository.deleteOnePassword(id);
     }
     public void updateItem(Password password){passwordRepository.updatePassword(password);}
-    public void deleteAll(){
-        passwordRepository.deleteAll();
-    }
 
 
 }

@@ -11,11 +11,13 @@
     <string name="type">Account type</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
-    <string name="copy">Password copied</string>
+    <string name="copy">password copied</string>
+    <string name="createPassword">Create Password</string>
+    <string name="updatePassword">Update Password</string>
+    <string name="errorEmpty">Fill empty spaces</string>
     <string name="confirmDelete">Are you sure you want to delete this entry?</string>
     <string name="lorem">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</string>
 
-    <string name="alertConfirmation">Are you sure delete this entry?</string>
-
+    <string name="alertConfirmation">Are you sure you want to make changes?</string>
 
 </resources>

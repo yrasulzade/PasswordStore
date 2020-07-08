@@ -25,40 +25,12 @@ public abstract class PasswordRoomDatabase extends RoomDatabase {
                 if (INSTANCE==null){
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             PasswordRoomDatabase.class,"password_database")
-                            .addCallback(roomDatabaseCallBack)
                             .build();
                 }
             }
         }
         return INSTANCE;
     }
-    private static RoomDatabase.Callback roomDatabaseCallBack =
-            new RoomDatabase.Callback() {
-                @Override
-                public void onOpen(@NonNull SupportSQLiteDatabase db) {
-                    super.onOpen(db);
-                    new PopulateDbAsync(INSTANCE).execute();
-                }
-            };
 
-    private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
-        private final PasswordDao noDoDao;
 
-        public PopulateDbAsync(PasswordRoomDatabase db) {
-            noDoDao = db.passwordDao();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            //noDoDao.deleteAll(); //removes all items from our table
-            //for testing
-//            NoDo noDo = new NoDo("Buy text_input_layout_border new Ferrari");
-//            noDoDao.insert(noDo);
-//
-//            noDo = new NoDo("Buy text_input_layout_border Big house");
-//            noDoDao.insert(noDo);
-
-            return null;
-        }
-    }
 }

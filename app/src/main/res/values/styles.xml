@@ -6,7 +6,6 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-<!--        <item name="android:windowFullscreen">true</item>-->
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -25,8 +24,5 @@
         <item name="boxCornerRadiusTopEnd">5dp</item>
         <item name="boxCornerRadiusTopStart">5dp</item>
         <item name="boxStrokeWidth">0dp</item>
-<!--        <item name="boxStrokeWidthFocused">0dp</item>-->
-<!--        <item name="boxBackgroundColor">@color/light_grey</item>-->
-
     </style>
 </resources>

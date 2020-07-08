@@ -1,5 +1,6 @@
 package com.example.passwordstore.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -9,6 +10,8 @@ import android.os.Bundle;
 import com.example.passwordstore.CustomDialogClass;
 import com.example.passwordstore.PasswordAdapter;
 import com.example.passwordstore.R;
+import com.example.passwordstore.databinding.ActivityMainBinding;
+import com.example.passwordstore.databinding.ContentMainBinding;
 import com.example.passwordstore.model.Password;
 import com.example.passwordstore.model.PasswordViewModel;
 import com.google.android.material.snackbar.Snackbar;
@@ -17,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -32,25 +36,22 @@ import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 
 public class MainActivity extends AppCompatActivity implements CustomDialogClass.OnItemClickListener {
     private PasswordViewModel passwordViewModel;
-    TextView appbarTitle;
     private PasswordAdapter passwordAdapter;
     List<Password> passwordList;
     String TAG = "mainactivity";
-    ConstraintLayout constraintLayout;
     public static final int CREATE_PASSWORD = 1;
     public static final int UPDATE_PASSWORD = 2;
     int id, position;
     Password password;
     boolean isUndone = false;
+    ActivityMainBinding activityMainBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        appbarTitle = findViewById(R.id.textView);
-        constraintLayout = findViewById(R.id.rootlayout);
-        appbarTitle.setText(getResources().getString(R.string.app_name));
+        activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
@@ -83,11 +84,7 @@ public class MainActivity extends AppCompatActivity implements CustomDialogClass
                 id = passwordList.get(position).getId();
                 password = passwordList.get(position);
 
-                CustomDialogClass customDialog = new CustomDialogClass(MainActivity.this);
-                customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-
-                customDialog.setOnItemClickListener(MainActivity.this);
-                customDialog.show();
+                showDialog();
             }
 
             @Override
@@ -108,6 +105,20 @@ public class MainActivity extends AppCompatActivity implements CustomDialogClass
 
     }
 
+    public void showDialog() {
+        CustomDialogClass customDialog = new CustomDialogClass(MainActivity.this);
+        customDialog.setCanceledOnTouchOutside(true);
+        customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        customDialog.setOnItemClickListener(MainActivity.this);
+        customDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                passwordAdapter.notifyItemChanged(position);
+            }
+        });
+        customDialog.show();
+    }
+
     public void createPassword(View view) {
 
         Intent intent = new Intent(getApplicationContext(), CreatePasswordActivity.class);
@@ -122,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements CustomDialogClass
             passwordList.remove(position);
             passwordAdapter.notifyDataSetChanged();
 
-            Snackbar snackbar = Snackbar.make(constraintLayout, password.getTitle() + " deleted",
+            Snackbar snackbar = Snackbar.make(activityMainBinding.getRoot(), password.getTitle() + " deleted",
                     Snackbar.LENGTH_LONG);
             View snackBarView = snackbar.getView();
             snackBarView.setBackgroundColor(Color.argb(255, 8, 20, 37));
@@ -145,8 +156,6 @@ public class MainActivity extends AppCompatActivity implements CustomDialogClass
                 }
             });
             snackbar.show();
-        } else {
-            passwordAdapter.notifyItemChanged(position);
         }
     }
 }

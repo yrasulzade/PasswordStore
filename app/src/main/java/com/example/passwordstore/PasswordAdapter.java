@@ -64,7 +64,7 @@ public class PasswordAdapter extends RecyclerView.Adapter<PasswordAdapter.ViewHo
                     ClipboardManager clipboard = (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
                     ClipData clip = ClipData.newPlainText("password", passwordList.get(getAdapterPosition()).getPassword());
                     clipboard.setPrimaryClip(clip);
-                    Toast.makeText(context,context.getString(R.string.copy),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, passwordList.get(getAdapterPosition()).getTitle() +" "+ context.getString(R.string.copy), Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -73,10 +73,10 @@ public class PasswordAdapter extends RecyclerView.Adapter<PasswordAdapter.ViewHo
                 public boolean onLongClick(View v) {
                     Intent intent = new Intent(context, CreatePasswordActivity.class);
                     intent.putExtra("fromWhere", MainActivity.UPDATE_PASSWORD);
-                    intent.putExtra("id",passwordList.get(getAdapterPosition()).getId());
-                    intent.putExtra("title",passwordList.get(getAdapterPosition()).getTitle());
-                    intent.putExtra("subtitle",passwordList.get(getAdapterPosition()).getUsername());
-                    intent.putExtra("password",passwordList.get(getAdapterPosition()).getPassword());
+                    intent.putExtra("id", passwordList.get(getAdapterPosition()).getId());
+                    intent.putExtra("title", passwordList.get(getAdapterPosition()).getTitle());
+                    intent.putExtra("subtitle", passwordList.get(getAdapterPosition()).getUsername());
+                    intent.putExtra("password", passwordList.get(getAdapterPosition()).getPassword());
                     context.startActivity(intent);
 
                     return true;
